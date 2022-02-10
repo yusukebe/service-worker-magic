@@ -1,0 +1,12 @@
+type = "javascript"
+
+compatibility_date = "2022-01-01"
+
+[vars]
+FROM = "Server"
+
+[build.upload]
+format = "service-worker"
+
+[site]
+bucket = "./src"

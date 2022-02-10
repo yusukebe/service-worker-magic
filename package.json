@@ -1,0 +1,17 @@
+{
+  "name": "sw",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "wrangler dev src/sw.js",
+    "publish": "wrangler publish src/sw.js"
+  },
+  "dependencies": {
+    "hono": "^0.3.7"
+  },
+  "devDependencies": {
+    "miniflare": "^2.2.0",
+    "wrangler": "^0.0.16"
+  }
+}
