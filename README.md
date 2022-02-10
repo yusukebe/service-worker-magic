@@ -41,8 +41,8 @@ Service Worker is registered.
 
 ### Then...
 
-- `/server/hello` => contents returned from the server.
-- `/sw/hello` => contents returned from the browser. Not from the server.
+- `/server/hello` => content is returned from the server.
+- `/sw/hello` => content is returned from the browser. Not from the server.
 
 ### Attention
 
