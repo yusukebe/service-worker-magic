@@ -28,32 +28,34 @@ function register() {
 function start() {
   navigator.serviceWorker.getRegistrations().then(function(registrations) {
     for(let registration of registrations) {
-      console.log('Unregister Service Worker')
-     registration.unregister()
+      console.log('Unregister Service Worker');
+      registration.unregister();
     }
-    register()
+    register();
   })
 }
 start();
 </script>`
 
-const header = `<html><body>
-  <h1><a href="/">Service Worker Magic</a></h1>`
+const header = `<html><head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>pre { font-size: 2em; } body { padding: 2em; }</style>
+  </head><body>
+  <h1><a href="/">Service Worker Magic</a></h1>
+  <ul><li><a href="/server/hello">From Server</a></li>
+  <li><a href="/sw/hello">From Service Worker</a></li></ul>`
 
 const footer = `
-  <ul><li><a href="/server/hello">From Server</a></li>
-  <li><a href="/sw/hello">From Service Worker</a></li></ul>
-  <hr /><footer>Server and Browser(Service Worker) code are <a href="/sw.js">same</a>!</footer>
-</body>
-</html>`
+  <footer>Server and Browser(Service Worker) code are <a href="/sw.js">same</a>!</footer>
+</body></html>`
 
 // Top page
 app.get('/', (c) => {
   const html = `${header}
   ${script}
-  <p><b>Registering Service Worker...</b></p>
-  <p>This is ${new URL(c.req.url).pathname}</p>
-  <p>Hello! from ${from}!</p>
+  <pre>This is ${new URL(c.req.url).pathname}
+Hello! from ${from}!
+</pre><p><b>Registering Service Worker...</b></p>
   ${footer}
   `
   return c.html(html)
@@ -62,8 +64,8 @@ app.get('/', (c) => {
 // Handler
 const handler = (c) => {
   const html = `${header}
-  <p>This is ${new URL(c.req.url).pathname}</p>
-  <p>Hello! from ${from}!</p>
+  <pre>This is ${new URL(c.req.url).pathname}
+Hello! from ${from}!</pre>
   ${footer}
   `
   return c.html(html)
