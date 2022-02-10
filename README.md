@@ -35,8 +35,8 @@ navigator.serviceWorker.register('/sw.js', { scope: '/sw/', type: 'module' })
 
 ### Then...
 
-- `/server/hello` => from the server.
-- `/sw/hello` => from the browser.
+- `/server/hello` => served from the server.
+- `/sw/hello` => served by the browser.
 
 ## Code
 
