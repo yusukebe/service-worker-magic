@@ -18,6 +18,12 @@ app.use('/server/*', logger())
 app.use('/:name{.+.js}', serveStatic({ root: './' }))
 
 const script = `<script>
+function clear() {
+  caches.keys().then(function(names) {
+    for (let name of names)
+        caches.delete(name);
+  });
+}
 function register() {
   navigator.serviceWorker.register('/sw.js', { scope: '/sw/', type: 'module' }).then(function(registration) {
     console.log('Registration Success');
@@ -25,6 +31,7 @@ function register() {
     console.log('Registration Error');
   });
 }
+clear()
 register()
 </script>`
 
@@ -34,6 +41,7 @@ const header = `<html><body>
 const footer = `
   <ul><li><a href="/server/hello">From Server</a></li>
   <li><a href="/sw/hello">From Service Worker</a></li></ul>
+  <hr /><footer>Server and Browser(Service Worker) code are <a href="/sw.js">same</a>!</footer>
 </body>
 </html>`
 
@@ -41,6 +49,7 @@ const footer = `
 app.get('/', (c) => {
   const html = `${header}
   ${script}
+  <p><b>Registering Service Worker...</b></p>
   <p>This is ${new URL(c.req.url).pathname}</p>
   <p>Hello! from ${from}!</p>
   ${footer}
