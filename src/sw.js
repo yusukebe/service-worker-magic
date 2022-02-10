@@ -5,7 +5,7 @@ import { logger } from './hono.logger.js'
 let from
 
 try {
-  from = FROM // "Server" is set on Environment variables
+  from = FROM // "Server" is set on Cloudflare Workers environment variables
 } catch {
   from = 'Service Worker'
 }
