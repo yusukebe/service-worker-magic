@@ -46,7 +46,7 @@ const header = `<html><head>
   <li><a href="/sw/hello">From Service Worker</a></li></ul>`
 
 const footer = `
-  <footer>Server and Browser(Service Worker) code are <a href="/sw.js">same</a>!</footer>
+  <footer>Server(Cloudflare Workers) and Browser(Service Worker) code are <a href="/sw.js">same</a>!</footer>
 </body></html>`
 
 // Top page
