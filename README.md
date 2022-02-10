@@ -52,6 +52,53 @@ If Service Worker does not work, clear the cache on your browser.
 
 Just [`sw.js`](./src/sw.js).
 
+### Short version
+
+It does not work well.
+
+```js
+import { Hono } from './hono.js'
+import { serveStatic } from './hono.serve-static.js'
+import { logger } from './hono.logger.js'
+
+let from = 'Service Worker'
+
+try {
+  from = FROM // "Server" is set on Cloudflare Workers environment variables
+}
+
+const app = new Hono()
+
+// Middleware
+app.use('/sw/*', logger())
+app.use('/server/*', logger())
+app.use('/:name{.+.js}', serveStatic({ root: './' }))
+
+
+// Top page
+app.get('/', (c) => {
+  const html = `<html><body>
+  <script>
+    navigator.serviceWorker.register('/sw.js', { scope: '/sw/', type: 'module' })
+  </script>
+  </body></html>`
+  return c.html(html)
+})
+
+// Handler
+const handler = (c) => {
+  const text = `Hello! from ${from}!`
+  return c.text(text)
+}
+
+// Route
+app.get('/server/hello', handler)
+app.get('/sw/hello', handler)
+
+// addEventListener('fetch'...
+app.fire()
+```
+
 ## Related projects
 
 `sw.js` is using Hono as Service Worker framework.
