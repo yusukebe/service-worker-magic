@@ -18,21 +18,23 @@ app.use('/server/*', logger())
 app.use('/:name{.+.js}', serveStatic({ root: './' }))
 
 const script = `<script>
-function clear() {
-  caches.keys().then(function(names) {
-    for (let name of names)
-        caches.delete(name);
-  });
-}
 function register() {
   navigator.serviceWorker.register('/sw.js', { scope: '/sw/', type: 'module' }).then(function(registration) {
-    console.log('Registration Success');
+    console.log('Register Service Worker: Success');
   }, function(error) {
-    console.log('Registration Error');
+    console.log('Register Service Worker: Error');
   });
 }
-clear()
-register()
+function start() {
+  navigator.serviceWorker.getRegistrations().then(function(registrations) {
+    for(let registration of registrations) {
+      console.log('Unregister Service Worker')
+     registration.unregister()
+    }
+    register()
+  })
+}
+start();
 </script>`
 
 const header = `<html><body>
