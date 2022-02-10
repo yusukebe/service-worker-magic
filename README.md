@@ -1,9 +1,11 @@
 # Service Worker Magic
 
-Server and Browser(Service Worker) code are same.
-
 - Server (Cloudflare Workers) code is [`sw.js`](./src/sw.js).
 - Browser ( Service Worker ) code is [`sw.js`](./src/sw.js).
+- Cloudflare Workers [`sw.js`](./src/sw.js) serves [`sw.js`](./src/sw.js).
+- Service Worker [`sw.js`](./src/sw.js) will be registered on `/`. The scope is `/sw/*`.
+- `/server/hello` => from the server.
+- `/sw/hello` => from the browser not from a server. Request is intercepted by Service Worker.
 
 It's magic.
 
@@ -22,21 +24,29 @@ It's magic.
 Run Cloudflare Workers on your terminal:
 
 ```sh
-$ wrangler dev src/sw.js
+$ wrangler dev sw.js
 ```
+
+`sw.js` is served by `sw.js`.
 
 ### Browser
 
-Access `/` on your browser, Service Worker is registered:
+Access `/`. Your browser will load `sw.js`:
 
 ```js
 navigator.serviceWorker.register('/sw.js', { scope: '/sw/', type: 'module' })
 ```
 
+Service Worker is registered.
+
 ### Then...
 
-- `/server/hello` => served from the server.
-- `/sw/hello` => served by the browser.
+- `/server/hello` => contents returned from the server.
+- `/sw/hello` => contents returned from the browser. Not from the server.
+
+### Attention
+
+If Service Worker does not work, clear the cache on your browser.
 
 ## Code
 
