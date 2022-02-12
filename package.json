@@ -1,7 +1,7 @@
 {
   "name": "service-worker-magic",
   "version": "1.0.0",
-  "main": "dist/index.js",
+  "main": "src/sw.js",
   "license": "MIT",
   "scripts": {
     "dev": "wrangler dev src/sw.js",
