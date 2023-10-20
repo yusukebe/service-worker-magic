@@ -4,13 +4,13 @@
   "main": "src/sw.js",
   "license": "MIT",
   "scripts": {
-    "dev": "wrangler dev src/sw.js",
+    "dev": "wrangler dev src/sw.js --log-level none",
     "publish": "wrangler publish src/sw.js"
   },
   "dependencies": {
     "hono": "^0.3.7"
   },
   "devDependencies": {
-    "wrangler": "^0.0.16"
+    "wrangler": "^3.14.0"
   }
 }
